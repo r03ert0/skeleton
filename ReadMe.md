@@ -1,7 +1,7 @@
 # skeleton
 _Roberto Toro, May 2017._
 
-Computes the mean curvature skeleton of a mesh. The command takes 3 arguments:
+Computes the mean curvature flow skeleton of a mesh. The command takes 3 arguments:
 
 * argv[1]: Input mesh in `.off` format (by default, it will read `data/elephant.off`)
 * argv[2]: Output skeleton in .cgal format (by default, it will write to `skel.cgal`)
