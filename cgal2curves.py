@@ -14,5 +14,5 @@ for i in range(0,len(ar)):
                 e=e+str(nx)+' '+str(nx+1)+'\n'
                 ne=ne+1
             nx=nx+1
-print nx, 0, ne
-print x+e
+print(nx, 0, ne)
+print(x+e)

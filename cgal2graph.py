@@ -21,6 +21,6 @@ for i in range(0,len(ar)):
             ve.append(b);
             ib=ve.index(b);
         ed.append(str(ia)+' '+str(ib))
-print str(len(ve))+' 0 '+str(len(ed))
-print '\n'.join(ve)
-print '\n'.join(ed)
+print(str(len(ve))+' 0 '+str(len(ed)))
+print('\n'.join(ve))
+print('\n'.join(ed))
