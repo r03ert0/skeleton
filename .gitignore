@@ -1,11 +1,8 @@
-
 *.cmake
-
 *.bin
-
 *.out
-
 skeleton/CMakeFiles
 skeleton/CMakeCache.txt
 skeleton/Makefile
 skeleton/skeleton
+skeleton/DartConfiguration.tcl
