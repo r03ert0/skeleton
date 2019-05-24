@@ -1,8 +1,9 @@
 import sys
 f=open(sys.argv[1])
 ar=f.read().split('\n')
-nx=0;
-ne=0;
+f.close()
+nx=0
+ne=0
 x=''
 e=''
 for i in range(0,len(ar)):

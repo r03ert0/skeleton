@@ -1,6 +1,7 @@
 import sys
 f=open(sys.argv[1])
 ar=f.read().split('\n')
+f.close()
 x=''
 ve=[]
 ed=[]
