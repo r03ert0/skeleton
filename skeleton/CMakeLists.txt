@@ -6,21 +6,23 @@ project( skeleton_ )
 
 cmake_minimum_required(VERSION 2.8.10)
 
+set(CMAKE_CXX_STANDARD 14)
+
 find_package(CGAL QUIET COMPONENTS Core )
 
 if ( CGAL_FOUND )
 
   include( ${CGAL_USE_FILE} )
 
-#-------------------------------------------------------
-# Include Eigen3
-find_package(Eigen3 3.0.91) 
-if(EIGEN3_FOUND) 
-   include( ${EIGEN3_USE_FILE} ) 
-else() 
-   message(STATUS "NOTICE: Eigen library is not found.") 
-endif() 
-#-------------------------------------------------------
+  #-------------------------------------------------------
+  # Include Eigen3
+  find_package(Eigen3 3.0.91) 
+  if(EIGEN3_FOUND) 
+    include( ${EIGEN3_USE_FILE} ) 
+  else() 
+    message(STATUS "NOTICE: Eigen library is not found.") 
+  endif() 
+  #-------------------------------------------------------
 
   include( CGAL_CreateSingleSourceCGALProgram )
 
