@@ -47,11 +47,19 @@ int main(int argc, char* argv[])
   // argv[1] Input mesh in .off format
   // argv[2] Output skeleton in .cgal format
   // argv[3] Output point correspondances in .cgal format
-  std::ifstream input((argc>1)?argv[1]:"data/elephant.off");
-  Polyhedron tmesh;
-  input >> tmesh;
+  std::cout<<argc<<std::endl;
+  std::cout<<argv[1]<<std::endl;
+  std::ifstream input ((argc>1)?argv[1]:"data/elephant.off");
+  Polyhedron poly;
+  if ( !input || !(input >> poly) || poly.empty()
+              || !CGAL::is_triangle_mesh(poly)) {
+    std::cerr << "Not a valid input file." << std::endl;
+    // return 1;
+  }
+  std::cout<<poly<<std::endl;
+
   Skeleton skeleton;
-  CGAL::extract_mean_curvature_flow_skeleton(tmesh, skeleton);
+  CGAL::extract_mean_curvature_flow_skeleton(poly, skeleton);
   std::cout << "Number of vertices of the skeleton: " << boost::num_vertices(skeleton) << "\n";
   std::cout << "Number of edges of the skeleton: " << boost::num_edges(skeleton) << "\n";
   // Output all the edges of the skeleton.
@@ -64,6 +72,7 @@ int main(int argc, char* argv[])
   BOOST_FOREACH(Skeleton_vertex v, vertices(skeleton))
     BOOST_FOREACH(vertex_descriptor vd, skeleton[v].vertices)
       output << "2 " << skeleton[v].point << " "
-                     << get(CGAL::vertex_point, tmesh, vd)  << "\n";
+                     << get(CGAL::vertex_point, poly, vd)  << "\n";
+
   return 0;
 }
