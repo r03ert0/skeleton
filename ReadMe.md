@@ -11,7 +11,22 @@ There are additionally two python scripts, `cgal2curves.py` and `cgal2graph.py`,
 
 
 ## Compilation instructions
-The code comes from the Skeleton example in CGAL, `simple_mcfskel_example.cpp`. Copy/paste it from CGAL's web page, move to an empty directory, and used the script `cgal_create_cmake_script` to create a CMakeLists.txt file. Skeleton uses the Eigen3 library. Add it manually to the `CMakeLists.txt` file like this:
+The code comes from the Skeleton example in CGAL, `simple_mcfskel_example.cpp`.  
+
+You need to install cgal.  
+Then add cgal to your path `code ~/.bash_profile`  
+`# For creating cmake files with cgal`
+`export PATH="/Users/katja/code/cgal-releases-CGAL-4.13.1/Scripts/scripts/":${PATH}`  
+
+Open a new terminal.  
+`cd foldgraph/bin/skeleton/skeleton`   
+`ls` should show `skeleton.cpp` and a `data` directory. (Remove everything else)     
+ 
+Use the script *cgal_create_cmake_script* to create a CMakeLists.txt file.  
+`cgal_create_cmake_script`
+
+Skeleton uses the Eigen3 library. Add it manually to the `CMakeLists.txt` file like this:
+`code CMakeLists.txt`  and add the part between the lines into the file
 
 ```
 # Created by the script cgal_create_cmake_script
@@ -49,4 +64,5 @@ else()
 endif()
 ```
 
-Finally, `cmake .` then `make`, and the code is compiled.
+Finally, run `cmake .` , then `make`, and the code is compiled.
+
