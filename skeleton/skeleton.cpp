@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
     std::cerr << "Not a valid input file." << std::endl;
     // return 1;
   }
-  std::cout<<poly<<std::endl;
+  //std::cout<<poly<<std::endl;
 
   Skeleton skeleton;
   CGAL::extract_mean_curvature_flow_skeleton(poly, skeleton);
