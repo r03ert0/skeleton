@@ -5,6 +5,12 @@
 #include <CGAL/boost/graph/properties_Polyhedron_3.h>
 #include <CGAL/extract_mean_curvature_flow_skeleton.h>
 #include <CGAL/boost/graph/split_graph_into_polylines.h>
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+#include <CGAL/Polyhedron_items_with_id_3.h>
+#include <CGAL/Polygon_mesh_processing/orient_polygon_soup.h>
+#include <CGAL/Polygon_mesh_processing/polygon_soup_to_polygon_mesh.h>
+#include <CGAL/Polygon_mesh_processing/orientation.h>
+#include <CGAL/IO/OFF_reader.h>
 #include <fstream>
 #include <boost/foreach.hpp>
 
@@ -16,6 +22,7 @@ typedef CGAL::Mean_curvature_flow_skeletonization<Polyhedron> Skeletonization;
 typedef Skeletonization::Skeleton                             Skeleton;
 typedef Skeleton::vertex_descriptor                           Skeleton_vertex;
 typedef Skeleton::edge_descriptor                             Skeleton_edge;
+typedef CGAL::Exact_predicates_inexact_constructions_kernel   K;
 
 //only needed for the display of the skeleton as maximal polylines
 struct Display_polylines{
@@ -50,13 +57,32 @@ int main(int argc, char* argv[])
   std::cout<<argc<<std::endl;
   std::cout<<argv[1]<<std::endl;
   std::ifstream input ((argc>1)?argv[1]:"data/elephant.off");
+
+  std::vector<K::Point_3> points;
+  std::vector<std::vector<std::size_t> > triangles;
+  CGAL::read_OFF(input, points, triangles);
+  CGAL::Polygon_mesh_processing::orient_polygon_soup(points, triangles);
+
   Polyhedron poly;
-  if ( !input || !(input >> poly) || poly.empty()
-              || !CGAL::is_triangle_mesh(poly)) {
-    std::cerr << "Not a valid input file." << std::endl;
-    // return 1;
+  CGAL::Polygon_mesh_processing::polygon_soup_to_polygon_mesh(points, triangles, poly);
+
+  // if ( !input ) {
+  //   std::cerr << "ERROR: No input" << std::endl;
+  //   return 1;
+  // }
+  // if(CGAL::is_polygon_soup_a_polygon_mesh() )
+  // if ( !(input >> poly) ) {
+  //   std::cerr << "ERROR: Can't read poly" << std::endl;
+  //   return 1;
+  // }
+  if ( poly.empty() ) {
+    std::cerr << "ERROR: Poly is empty" << std::endl;
+    return 1;
   }
-  //std::cout<<poly<<std::endl;
+  if (!CGAL::is_triangle_mesh(poly)) {
+    std::cerr << "ERROR: Poly is not a triangle mesh" << std::endl;
+    return 1;
+  }
 
   Skeleton skeleton;
   CGAL::extract_mean_curvature_flow_skeleton(poly, skeleton);
