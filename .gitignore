@@ -7,3 +7,4 @@ skeleton/Makefile
 skeleton/skeleton
 skeleton/DartConfiguration.tcl
 skeleton/.DS_Store
+.DS_Store
