@@ -22,46 +22,26 @@ Open a new terminal.
 `cd foldgraph/bin/skeleton/skeleton`   
 `ls` should show `skeleton.cpp` and a `data` directory. (Remove everything else)     
  
-Use the script *cgal_create_cmake_script* to create a CMakeLists.txt file.  
-`cgal_create_cmake_script`
-
-Skeleton uses the Eigen3 library. Add it manually to the `CMakeLists.txt` file like this:
-`code CMakeLists.txt`  and add the part between the lines into the file
+I originally used the script *cgal_create_cmake_script* to create a CMakeLists.txt file,
+and then modified it to include Eigen, and build a Release version.
+The `CMakeLists.txt` file should be like this:
 
 ```
 # Created by the script cgal_create_cmake_script
 # This is the CMake script for compiling a CGAL application.
 
+set(CMAKE_BUILD_TYPE Release)
 
-project( skeleton_ )
+cmake_minimum_required(VERSION 3.1...3.14)
+project( skeleton )
 
-cmake_minimum_required(VERSION 2.8.10)
+find_package(CGAL REQUIRED QUIET OPTIONAL_COMPONENTS Core )
+include( ${CGAL_USE_FILE} )
 
-find_package(CGAL QUIET COMPONENTS Core )
-
-if ( CGAL_FOUND )
-
-  include( ${CGAL_USE_FILE} )
-
-#-------------------------------------------------------
-# Include Eigen3
 find_package(Eigen3 3.0.91) 
-if(EIGEN3_FOUND) 
-   include( ${EIGEN3_USE_FILE} ) 
-else() 
-   message(STATUS "NOTICE: Eigen library is not found.") 
-endif() 
-#-------------------------------------------------------
+include( ${EIGEN3_USE_FILE} )
 
-  include( CGAL_CreateSingleSourceCGALProgram )
-
-  create_single_source_cgal_program( "skeleton.cpp" )
-
-else()
-  
-    message(STATUS "This program requires the CGAL library, and will not be compiled.")
-  
-endif()
+create_single_source_cgal_program( "skeleton.cpp" )
 ```
 
 Finally, run `cmake .` , then `make`, and the code is compiled.
