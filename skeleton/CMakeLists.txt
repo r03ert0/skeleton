@@ -1,29 +1,15 @@
 # Created by the script cgal_create_cmake_script
 # This is the CMake script for compiling a CGAL application.
 
-project( skeleton_ )
-
-cmake_minimum_required(VERSION 2.8.10)
-
-set(CMAKE_CXX_STANDARD 14)
-
-#-----------------------------
 set(CMAKE_BUILD_TYPE Release)
-#-----------------------------
 
-find_package(CGAL QUIET COMPONENTS Core )
+cmake_minimum_required(VERSION 3.1...3.14)
+project( skeleton )
 
-if ( CGAL_FOUND )
-  #-------------------------------------------------------
-  include( ${CGAL_USE_FILE} )
-  find_package(Eigen3 3.0.91) 
-  if(EIGEN3_FOUND) 
-    include( ${EIGEN3_USE_FILE} ) 
-  else() 
-    message(STATUS "NOTICE: Eigen library is not found.") 
-  endif() 
-  create_single_source_cgal_program( "skeleton.cpp" )
-  #-------------------------------------------------------
-else()  
-  message(STATUS "This program requires the CGAL library, and will not be compiled.")
-endif()
+find_package(CGAL REQUIRED QUIET OPTIONAL_COMPONENTS Core )
+include( ${CGAL_USE_FILE} )
+
+find_package(Eigen3 3.0.91) 
+include( ${EIGEN3_USE_FILE} )
+
+create_single_source_cgal_program( "skeleton.cpp" )
