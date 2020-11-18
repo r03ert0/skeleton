@@ -30,6 +30,10 @@ The `CMakeLists.txt` file should be like this:
 # Created by the script cgal_create_cmake_script
 # This is the CMake script for compiling a CGAL application.
 
+# Use a line like this if your CGAL sits in an unusual location
+# (no need for it if CGAL was installed using brew, for example)
+set(CMAKE_PREFIX_PATH /Applications/_Sci/cgal-github/Installation/lib/cmake/CGAL)
+
 set(CMAKE_BUILD_TYPE Release)
 
 cmake_minimum_required(VERSION 3.1...3.14)
